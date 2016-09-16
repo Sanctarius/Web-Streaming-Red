@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+
+    <title>Site Web de Stream   HTML/CSS Template</title> <!-- ICI VOUS POUVEZ CHANGER LE TITRE DE VOTRE SITE -->
+
+    <link href="style.css" rel="stylesheet" type="text/css" media="screen"> 
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+	<header class="global">
+		<h1>Sanctarius <span> Stream</span></h1> <!-- ICI VOUS POUVEZ CHANGER LE NOM DE VOTRE SITE -->
+	</header>
+
+	<div class="global live">
+		<iframe src="http://www.twitch.tv/PSEUDOTWITCH/embed" frameborder="0" scrolling="no" height="378" width="620" class="player"></iframe> <!-- INSERER ICI VOTRE PSEUDO TWITCH (exemple : Sanctarius) -->
+		<iframe src="http://www.twitch.tv/PSEUDOTWITCH/chat?popout=" frameborder="0" scrolling="no" height="500" width="350" class="chat"></iframe> <!-- INSERER ICI VOTRE PSEUDO TWITCH (exemple : Sanctrarius) -->
+	</div>
+
+	<div class="button global">
+		<a href="LIEN FACEBOOK" class="fb social">b</a> <!-- INSERER ICI LE LIEN DE VOTRE FACEBOOK -->
+		<a href="LIEN TWITTER" class="tw social">a</a> <!-- INSERER ICI LE LIEN DE VOTRE TWITTER -->
+		<a href="LIEN YOUTUBE" class="yt social">r</a> <!-- INSERER ICI LE LIEN DE VOTRE YOUTUBE -->
+		<a href="LIEN DONATION" class="don">Faire un don</a> <!-- INSERER ICI LE LIEN DE VOTRE PAGE DE DONATION -->
+	</div>
+
+	<div id="counter"></div>
+
+	<div class="clear"></div>
+
+	<footer>
+		<p>Template réalisé par <a href="#" target="_blank">Sanctarius Web-Développeur</a></p>
+	</footer>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script>
+        $(function() {
+                function actualizeCounter() {
+                        $.ajax({
+                                url: 'https://api.twitch.tv/kraken/streams/PSEUDOTWITCH', // INSERER ICI VOTRE PSEUDO TWITCH (exemple : Sanctarius)
+                                dataType: 'jsonp',
+                                success: function(data){
+                                        if(data.stream != null)
+                                                $("#counter").html("Vous êtes <span>" + data.stream.viewers + "</span>");
+                                        else
+                                                $("#counter").html('');
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                        $("#counter").html('');
+                                }
+                        });
+                        setTimeout(actualizeCounter, 10000);
+                }
+                actualizeCounter();
+        });
+    </script>
+
+</body>
+
+</html>
